@@ -56,4 +56,12 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	finalizedBy("jacocoTestReport") // Generate the report after tests run
+}
+
+tasks.jacocoTestReport{
+	dependsOn("test")
+	reports {
+		xml.required.set(true)
+	}
 }
