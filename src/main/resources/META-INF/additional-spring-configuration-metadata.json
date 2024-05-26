@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.primary.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.password."
+    },
+    {
+      "name": "spring.datasource.primary.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.username."
+    },
+    {
+      "name": "spring.datasource.notification.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.notification.password."
+    },
+    {
+      "name": "spring.datasource.notification.username",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.notification.username."
+    },
+    {
+      "name": "spring.datasource.notification.jdbcUrl",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.notification.jdbcUrl."
+    },
+    {
+      "name": "spring.datasource.primary.jdbcUrl",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.primary.jdbcUrl."
+    }
+  ] }
