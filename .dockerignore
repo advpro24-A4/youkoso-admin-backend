@@ -1,0 +1,11 @@
+build/
+.DS_Store
+*.iml
+*.ipr
+*.iws
+.idea/
+
+*.log
+*.tmp
+
+.dockerignore
