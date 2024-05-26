@@ -1,7 +1,9 @@
 plugins {
 	java
+	jacoco
 	id("org.springframework.boot") version "3.3.0"
 	id("io.spring.dependency-management") version "1.1.5"
+	id("org.sonarqube") version "5.0.0.4638"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -20,6 +22,21 @@ configurations {
 repositories {
 	mavenCentral()
 }
+
+jacoco{
+	toolVersion = "0.8.12"
+}
+
+sonarqube {
+	properties {
+		property("sonar.exclusions", "resources/db/migration/**")
+		property("sonar.projectKey", "advpro24-A4_youkoso-admin-backend")
+		property ("sonar.organization", "advpro24-a4")
+		property( "sonar.host.url", "https://sonarcloud.io")
+
+	}
+}
+
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
