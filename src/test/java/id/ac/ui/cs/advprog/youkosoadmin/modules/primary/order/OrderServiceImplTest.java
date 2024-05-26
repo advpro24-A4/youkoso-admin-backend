@@ -72,7 +72,7 @@ class OrderServiceImplTest {
         Page<Order> result = orderService.findAll(pageable);
 
         assertEquals(1, result.getTotalElements());
-        assertEquals(order, result.getContent().get(0));
+        assertEquals(order, result.getContent().getFirst());
         verify(orderRepository, times(1)).findAllBy(pageable);
     }
 
@@ -85,7 +85,7 @@ class OrderServiceImplTest {
         Page<Order> result = orderService.findByStatus("PENDING", pageable);
 
         assertEquals(1, result.getTotalElements());
-        assertEquals(order, result.getContent().get(0));
+        assertEquals(order, result.getContent().getFirst());
         verify(orderRepository, times(1)).findByStatusContainingIgnoreCase("PENDING", pageable);
     }
 
@@ -98,7 +98,7 @@ class OrderServiceImplTest {
         Page<Order> result = orderService.findByUserId("user123", pageable);
 
         assertEquals(1, result.getTotalElements());
-        assertEquals(order, result.getContent().get(0));
+        assertEquals(order, result.getContent().getFirst());
         verify(orderRepository, times(1)).findByUserIdContainingIgnoreCase("user123", pageable);
     }
 
@@ -111,7 +111,7 @@ class OrderServiceImplTest {
         Page<Order> result = orderService.findByStatusAndUserId("PENDING", "user123", pageable);
 
         assertEquals(1, result.getTotalElements());
-        assertEquals(order, result.getContent().get(0));
+        assertEquals(order, result.getContent().getFirst());
         verify(orderRepository, times(1)).findByStatusContainingIgnoreCaseAndUserIdContainingIgnoreCase("PENDING", "user123", pageable);
     }
 
