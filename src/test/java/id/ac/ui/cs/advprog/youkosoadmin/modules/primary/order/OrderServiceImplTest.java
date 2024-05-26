@@ -35,7 +35,7 @@ class OrderServiceImplTest {
     private Order order;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         order = new Order();
         order.setId(1L);
         order.setStatus("PENDING");
@@ -43,7 +43,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void updateOrderStatusReturnsUpdatedOrder() {
+    void updateOrderStatusReturnsUpdatedOrder() {
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
         when(orderRepository.save(any(Order.class))).thenReturn(order);
 
@@ -55,7 +55,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void updateOrderStatusThrowsNotFoundException() {
+    void updateOrderStatusThrowsNotFoundException() {
         when(orderRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> orderService.updateOrderStatus(1L, "SHIPPED"));
@@ -64,7 +64,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void findAllReturnsPageOfOrders() {
+    void findAllReturnsPageOfOrders() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Order> orderPage = new PageImpl<>(Collections.singletonList(order));
         when(orderRepository.findAllBy(pageable)).thenReturn(orderPage);
@@ -77,7 +77,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void findByStatusReturnsPageOfOrders() {
+    void findByStatusReturnsPageOfOrders() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Order> orderPage = new PageImpl<>(Collections.singletonList(order));
         when(orderRepository.findByStatusContainingIgnoreCase(anyString(), any(Pageable.class))).thenReturn(orderPage);
@@ -90,7 +90,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void findByUserIdReturnsPageOfOrders() {
+    void findByUserIdReturnsPageOfOrders() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Order> orderPage = new PageImpl<>(Collections.singletonList(order));
         when(orderRepository.findByUserIdContainingIgnoreCase(anyString(), any(Pageable.class))).thenReturn(orderPage);
@@ -103,7 +103,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void findByStatusAndUserIdReturnsPageOfOrders() {
+    void findByStatusAndUserIdReturnsPageOfOrders() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Order> orderPage = new PageImpl<>(Collections.singletonList(order));
         when(orderRepository.findByStatusContainingIgnoreCaseAndUserIdContainingIgnoreCase(anyString(), anyString(), any(Pageable.class))).thenReturn(orderPage);
@@ -116,7 +116,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void findByIdReturnsOrderWhenFound() {
+    void findByIdReturnsOrderWhenFound() {
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
 
         Order result = orderService.findById(1L);
@@ -126,7 +126,7 @@ class OrderServiceImplTest {
     }
 
     @Test
-    public void findByIdThrowsNotFoundExceptionWhenNotFound() {
+    void findByIdThrowsNotFoundExceptionWhenNotFound() {
         when(orderRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> orderService.findById(1L));

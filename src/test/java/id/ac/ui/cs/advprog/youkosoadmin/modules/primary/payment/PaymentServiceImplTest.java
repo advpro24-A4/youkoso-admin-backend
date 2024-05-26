@@ -41,7 +41,7 @@ class PaymentServiceImplTest {
     private Order order;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         payment = new Payment();
         payment.setId(1L);
         payment.setOrderId(1L);
@@ -54,7 +54,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void verifyPaymentReturnsVerifiedPayment() {
+    void verifyPaymentReturnsVerifiedPayment() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
         when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
@@ -71,7 +71,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void verifyPaymentThrowsNotFoundExceptionForInvalidPayment() {
+    void verifyPaymentThrowsNotFoundExceptionForInvalidPayment() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> paymentService.verifyPayment(1L));
@@ -80,7 +80,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void verifyPaymentThrowsNotFoundExceptionForInvalidOrder() {
+    void verifyPaymentThrowsNotFoundExceptionForInvalidOrder() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -90,7 +90,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void verifyPaymentThrowsBadRequestExceptionForCancelledOrder() {
+    void verifyPaymentThrowsBadRequestExceptionForCancelledOrder() {
         order.setStatus("CANCELLED");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -101,7 +101,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void verifyPaymentThrowsBadRequestExceptionForInvalidOrderStatus() {
+    void verifyPaymentThrowsBadRequestExceptionForInvalidOrderStatus() {
         order.setStatus("PROCESSING");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -112,7 +112,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void verifyPaymentThrowsBadRequestExceptionForAlreadyVerifiedPayment() {
+    void verifyPaymentThrowsBadRequestExceptionForAlreadyVerifiedPayment() {
         payment.setPaymentStatus("VERIFIED");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -123,7 +123,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentReturnsRejectedPayment() {
+    void rejectPaymentReturnsRejectedPayment() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
         when(paymentRepository.save(any(Payment.class))).thenReturn(payment);
@@ -140,7 +140,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentThrowsNotFoundExceptionForInvalidPayment() {
+    void rejectPaymentThrowsNotFoundExceptionForInvalidPayment() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> paymentService.rejectPayment(1L));
@@ -149,7 +149,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentThrowsNotFoundExceptionForInvalidOrder() {
+    void rejectPaymentThrowsNotFoundExceptionForInvalidOrder() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.empty());
 
@@ -159,7 +159,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentThrowsBadRequestExceptionForCancelledOrder() {
+    void rejectPaymentThrowsBadRequestExceptionForCancelledOrder() {
         order.setStatus("CANCELLED");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -170,7 +170,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentThrowsBadRequestExceptionForInvalidOrderStatus() {
+    void rejectPaymentThrowsBadRequestExceptionForInvalidOrderStatus() {
         order.setStatus("PROCESSING");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -181,7 +181,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentThrowsNotFoundExceptionForAlreadyRejectedPayment() {
+    void rejectPaymentThrowsNotFoundExceptionForAlreadyRejectedPayment() {
         payment.setPaymentStatus("REJECTED");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -192,7 +192,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void rejectPaymentThrowsNotFoundExceptionForAlreadyVerifiedPayment() {
+    void rejectPaymentThrowsNotFoundExceptionForAlreadyVerifiedPayment() {
         payment.setPaymentStatus("VERIFIED");
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
         when(orderRepository.findById(anyLong())).thenReturn(Optional.of(order));
@@ -203,7 +203,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void findAllReturnsPageOfPayments() {
+    void findAllReturnsPageOfPayments() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Payment> paymentPage = new PageImpl<>(Collections.singletonList(payment));
         when(paymentRepository.findAllBy(pageable)).thenReturn(paymentPage);
@@ -216,7 +216,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void findByStatusReturnsPageOfPayments() {
+    void findByStatusReturnsPageOfPayments() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Payment> paymentPage = new PageImpl<>(Collections.singletonList(payment));
         when(paymentRepository.findByPaymentStatusContainingIgnoreCase(anyString(), any(Pageable.class))).thenReturn(paymentPage);
@@ -229,7 +229,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void findByUserIdReturnsPageOfPayments() {
+    void findByUserIdReturnsPageOfPayments() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Payment> paymentPage = new PageImpl<>(Collections.singletonList(payment));
         when(paymentRepository.findByUserIdContainingIgnoreCase(anyString(), any(Pageable.class))).thenReturn(paymentPage);
@@ -242,7 +242,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void findByStatusAndUserIdReturnsPageOfPayments() {
+    void findByStatusAndUserIdReturnsPageOfPayments() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Payment> paymentPage = new PageImpl<>(Collections.singletonList(payment));
         when(paymentRepository.findByPaymentStatusContainingIgnoreCaseAndUserIdContainingIgnoreCase(anyString(), anyString(), any(Pageable.class))).thenReturn(paymentPage);
@@ -255,7 +255,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void findByIdReturnsPaymentWhenFound() {
+    void findByIdReturnsPaymentWhenFound() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.of(payment));
 
         Payment result = paymentService.findById(1L);
@@ -265,7 +265,7 @@ class PaymentServiceImplTest {
     }
 
     @Test
-    public void findByIdThrowsNotFoundExceptionWhenNotFound() {
+    void findByIdThrowsNotFoundExceptionWhenNotFound() {
         when(paymentRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> paymentService.findById(1L));

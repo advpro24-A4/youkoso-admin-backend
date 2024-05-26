@@ -29,18 +29,18 @@ class NotificationServiceImplTest {
     AutoCloseable closeable;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         closeable = MockitoAnnotations.openMocks(this);
         notificationService = new NotificationServiceImpl(notificationRepository);
     }
 
     @AfterEach
-    public void releaseMocks() throws Exception {
+    void releaseMocks() throws Exception {
         closeable.close();
     }
 
     @Test
-    public void findByTypeAndStatusReturnsAllWhenTypeAndStatusAreNull() {
+    void findByTypeAndStatusReturnsAllWhenTypeAndStatusAreNull() {
         List<Notification> notifications = Arrays.asList(new Notification(), new Notification());
         when(notificationRepository.findAll()).thenReturn(notifications);
 
@@ -50,7 +50,7 @@ class NotificationServiceImplTest {
     }
 
     @Test
-    public void findByTypeAndStatusReturnsByStatusWhenTypeIsNull() {
+    void findByTypeAndStatusReturnsByStatusWhenTypeIsNull() {
         List<Notification> notifications = Arrays.asList(new Notification(), new Notification());
         when(notificationRepository.findByStatus(NotificationStatus.READ)).thenReturn(notifications);
 
@@ -60,7 +60,7 @@ class NotificationServiceImplTest {
     }
 
     @Test
-    public void findByTypeAndStatusReturnsByTypeWhenStatusIsNull() {
+    void findByTypeAndStatusReturnsByTypeWhenStatusIsNull() {
         List<Notification> notifications = Arrays.asList(new Notification(), new Notification());
         when(notificationRepository.findByType(NotificationType.ORDER)).thenReturn(notifications);
 
@@ -70,7 +70,7 @@ class NotificationServiceImplTest {
     }
 
     @Test
-    public void findByTypeAndStatusReturnsByTypeAndStatusWhenBothAreNotNull() {
+    void findByTypeAndStatusReturnsByTypeAndStatusWhenBothAreNotNull() {
         List<Notification> notifications = Arrays.asList(new Notification(), new Notification());
         when(notificationRepository.findByTypeAndStatus(NotificationType.ORDER, NotificationStatus.READ)).thenReturn(notifications);
 
@@ -80,7 +80,7 @@ class NotificationServiceImplTest {
     }
 
     @Test
-    public void readNotificationReturnsNotificationWhenFound() {
+    void readNotificationReturnsNotificationWhenFound() {
         UUID id = UUID.randomUUID();
         Notification notification = new Notification();
         notification.setStatus(NotificationStatus.UNREAD);
@@ -93,7 +93,7 @@ class NotificationServiceImplTest {
     }
 
     @Test
-    public void readNotificationThrowsExceptionWhenNotFound() {
+    void readNotificationThrowsExceptionWhenNotFound() {
         UUID id = UUID.randomUUID();
         when(notificationRepository.findById(id)).thenReturn(Optional.empty());
 

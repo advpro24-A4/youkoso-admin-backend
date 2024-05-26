@@ -33,7 +33,7 @@ class ProductServiceTest {
     private AutoCloseable closeable;
 
     @BeforeEach
-    public void setup() {
+    void setup() {
         closeable = MockitoAnnotations.openMocks(this);
         productService = new ProductServiceImpl(productRepository);
         product = new Product();
@@ -47,13 +47,13 @@ class ProductServiceTest {
 
 
     @AfterEach
-    public void releaseMocks() throws Exception {
+    void releaseMocks() throws Exception {
         closeable.close();
     }
 
 
     @Test
-    public void createProductReturnsFinalProduct() {
+    void createProductReturnsFinalProduct() {
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
         FinalProduct result = productService.createProduct(product);
@@ -63,7 +63,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void editProductReturnsFinalProduct() {
+    void editProductReturnsFinalProduct() {
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
         FinalProduct result = productService.editProduct(product);
@@ -73,7 +73,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void deleteProductReturnsFinalProductWhenFound() {
+    void deleteProductReturnsFinalProductWhenFound() {
         when(productRepository.findById(anyInt())).thenReturn(Optional.of(product));
         doNothing().when(productRepository).delete(any(Product.class));
 
@@ -85,7 +85,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void deleteProductThrowsNotFoundExceptionWhenNotFound() {
+    void deleteProductThrowsNotFoundExceptionWhenNotFound() {
         when(productRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> productService.deleteProduct(1));
@@ -94,7 +94,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void getProductReturnsFinalProductWhenFound() {
+    void getProductReturnsFinalProductWhenFound() {
         when(productRepository.findById(anyInt())).thenReturn(Optional.of(product));
 
         FinalProduct result = productService.getProduct(1);
@@ -104,7 +104,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void getProductThrowsNotFoundExceptionWhenNotFound() {
+    void getProductThrowsNotFoundExceptionWhenNotFound() {
         when(productRepository.findById(anyInt())).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> productService.getProduct(1));
@@ -112,7 +112,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void getProductsReturnsPageOfFinalProducts() {
+    void getProductsReturnsPageOfFinalProducts() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> productPage = new PageImpl<>(Collections.singletonList(product));
         when(productRepository.findAllBy(pageable)).thenReturn(productPage);
@@ -125,7 +125,7 @@ class ProductServiceTest {
     }
 
     @Test
-    public void searchProductReturnsPageOfFinalProducts() {
+    void searchProductReturnsPageOfFinalProducts() {
         Pageable pageable = PageRequest.of(0, 10);
         Page<Product> productPage = new PageImpl<>(Collections.singletonList(product));
         when(productRepository.findByProductNameContainingIgnoreCase(anyString(), any(Pageable.class))).thenReturn(productPage);
