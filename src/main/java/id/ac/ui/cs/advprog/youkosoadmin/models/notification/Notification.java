@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@Entity
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -50,6 +51,7 @@ public class Notification {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Column(name="updated_at",nullable = false)
     @UpdateTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime updatedAt;
