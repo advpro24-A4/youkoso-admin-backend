@@ -132,7 +132,7 @@ class ShipmentFactoryImplTest {
 
     @Test
     void generateTrackingNumber_InvalidShipmentMethod_ThrowsException() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        BadRequestException exception = assertThrows(BadRequestException.class,
                 () -> shipmentFactory.generateTrackingNumber("INVALID"));
 
         assertEquals("Invalid shipment method", exception.getMessage());
